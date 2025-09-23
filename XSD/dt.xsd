@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:schemas-microsoft-com:datatypes" xmlns:UML="omg.org/UML1.3" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+  <xs:import schemaLocation="MDG.xsd"/>
+  <xs:import namespace="omg.org/UML1.3" schemaLocation="UML.xsd"/>
+  <xs:attribute name="dt" type="xs:NCName"/>
+</xs:schema>

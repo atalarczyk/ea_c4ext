@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  xmlns:UML="omg.org/UML1.3" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+  <xs:import namespace="omg.org/UML1.3" schemaLocation="UML.xsd"/>
+  <xs:import namespace="urn:schemas-microsoft-com:datatypes" schemaLocation="dt.xsd"/>
+  <xs:element name="MDG.Technology">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Documentation"/>
+        <xs:element ref="Logo"/>
+        <xs:element ref="Icon"/>
+        <xs:element ref="UMLProfiles"/>
+        <xs:element ref="UMLPatterns"/>
+        <xs:element ref="DiagramProfile"/>
+        <xs:element ref="UIToolboxes"/>
+        <xs:element ref="ModelTemplates"/>
+      </xs:sequence>
+      <xs:attribute name="version" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Logo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Image"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UMLProfiles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="UMLProfile"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UMLPatterns">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="UMLPattern"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DiagramProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="UMLProfile"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UIToolboxes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="UMLProfile"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModelTemplates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Model"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Model">
+    <xs:complexType>
+      <xs:attribute name="default" use="required"/>
+      <xs:attribute name="description" use="required"/>
+      <xs:attribute name="filter" use="required"/>
+      <xs:attribute name="icon" use="required" type="xs:integer"/>
+      <xs:attribute name="location" use="required"/>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Documentation">
+    <xs:complexType>
+      <xs:attribute name="alias"/>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="infoURI" type="xs:anyURI"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="notes" use="required"/>
+      <xs:attribute name="supportURI"/>
+      <xs:attribute name="version" use="required" type="xs:NMTOKEN"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Image">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:base64Binary">
+          <xs:attribute name="type" use="required"/>
+          <xs:attribute ref="dt:dt" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Icon">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="Image"/>
+      </xs:sequence>
+      <xs:attribute name="type" type="xs:NCName"/>
+      <xs:attribute ref="dt:dt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UMLProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Documentation"/>
+        <xs:element ref="Content"/>
+      </xs:sequence>
+      <xs:attribute name="profiletype" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Content">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Stereotypes"/>
+        <xs:element minOccurs="0" ref="Metamodel"/>
+        <xs:element ref="TaggedValueTypes"/>
+        <xs:element minOccurs="0" ref="QuickLink"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Stereotypes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Stereotype"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Metamodel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Notes"/>
+        <xs:element ref="Elements"/>
+        <xs:element ref="Connectors"/>
+      </xs:sequence>
+      <xs:attribute name="diagram" use="required" type="xs:NCName"/>
+      <xs:attribute name="toolbox" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Notes" type="xs:string"/>
+  <xs:element name="Elements">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Element"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Connectors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Connector"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Connector">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Source"/>
+        <xs:element ref="Target"/>
+      </xs:sequence>
+      <xs:attribute name="metatype" use="required" type="xs:NCName"/>
+      <xs:attribute name="stereotype" use="required" type="xs:NCName"/>
+      <xs:attribute name="stereotypeProfile" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Source" type="Metaclass"/>
+  <xs:element name="Target" type="Metaclass"/>
+  <xs:element name="TaggedValueTypes">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="QuickLink">
+    <xs:complexType>
+      <xs:attribute name="data" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UMLPattern">
+    <xs:complexType>
+      <xs:sequence minOccurs="0">
+        <xs:element ref="XMI" minOccurs="0"/>
+        <xs:element ref="UMLPattern.PromptList"/>
+        <xs:element ref="UMLPattern.PreviewImage"/>
+      </xs:sequence>
+      <xs:attribute name="category"/>
+      <xs:attribute name="name"/>
+      <xs:attribute name="notes"/>
+      <xs:attribute name="version" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XMI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="XMI.header"/>
+        <xs:element ref="XMI.content"/>
+        <xs:element ref="XMI.difference"/>
+        <xs:element ref="XMI.extensions"/>
+      </xs:sequence>
+      <xs:attribute name="timestamp" use="required"/>
+      <xs:attribute name="xmi.version" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XMI.header">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="XMI.documentation"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XMI.documentation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="XMI.exporter"/>
+        <xs:element ref="XMI.exporterVersion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XMI.exporter" type="xs:string"/>
+  <xs:element name="XMI.exporterVersion" type="xs:decimal"/>
+  <xs:element name="XMI.content">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="UML:Model"/>
+        <xs:element ref="UML:Diagram"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="XMI.difference">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="XMI.extensions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="EAStub"/>
+        <xs:element ref="UMLPattern"/>
+      </xs:sequence>
+      <xs:attribute name="xmi.extender" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EAStub">
+    <xs:complexType>
+      <xs:attribute name="UMLType" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="xmi.id" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UMLPattern.PromptList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Element"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UMLPattern.PreviewImage">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:base64Binary">
+          <xs:attribute name="cx" use="required" type="xs:integer"/>
+          <xs:attribute name="cy" use="required" type="xs:integer"/>
+          <xs:attribute ref="dt:dt" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Stereotype">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Icon"/>
+        <xs:element minOccurs="0" ref="Image"/>
+        <xs:element minOccurs="0" ref="AppliesTo"/>
+        <xs:element minOccurs="0" ref="TaggedValues"/>
+      </xs:sequence>
+      <xs:attribute name="alias"/>
+      <xs:attribute name="bgcolor" type="xs:integer"/>
+      <xs:attribute name="bordercolor" type="xs:integer"/>
+      <xs:attribute name="borderwidth" type="xs:integer"/>
+      <xs:attribute name="cx" type="xs:integer"/>
+      <xs:attribute name="cy" type="xs:integer"/>
+      <xs:attribute name="fontcolor" type="xs:integer"/>
+      <xs:attribute name="hideicon" type="xs:integer"/>
+      <xs:attribute name="instanceType"/>
+      <xs:attribute name="metatype"/>
+      <xs:attribute name="name" use="required" type="xs:anyURI"/>
+      <xs:attribute name="notes"/>
+      <xs:attribute name="profile"/>
+      <xs:attribute name="strictness" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AppliesTo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Apply"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Apply">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="Property"/>
+      </xs:sequence>
+      <xs:attribute name="type" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Property">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TaggedValues">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Tag"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Tag">
+    <xs:complexType>
+      <xs:attribute name="default" use="required"/>
+      <xs:attribute name="description" use="required"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="type" use="required"/>
+      <xs:attribute name="unit" use="required"/>
+      <xs:attribute name="values" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Element">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Comment"/>
+      </xs:sequence>
+      <xs:attribute name="classifier" type="xs:NCName"/>
+      <xs:attribute name="guid"/>
+      <xs:attribute name="id" type="xs:integer"/>
+      <xs:attribute name="link" type="xs:NCName"/>
+      <xs:attribute name="metaclass" type="xs:NCName"/>
+      <xs:attribute name="name" type="xs:NMTOKEN"/>
+      <xs:attribute name="prompt" type="xs:NCName"/>
+      <xs:attribute name="stereotype" type="xs:NCName"/>
+      <xs:attribute name="stereotypeProfile"/>
+      <xs:attribute name="type" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Comment">
+    <xs:complexType mixed="true">
+      <xs:attribute name="comment" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Metaclass">
+    <xs:sequence>
+      <xs:element ref="Metaclass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Metaclass">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Stereotype"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UML.Expression">
+    <xs:sequence>
+      <xs:element ref="UML:Expression"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UML.Classifier">
+    <xs:sequence>
+      <xs:element ref="UML:Classifier"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
